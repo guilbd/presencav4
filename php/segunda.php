@@ -9,6 +9,7 @@ $horarioPresenca = $dt->format("H:i:s");
 $sql = "SELECT id_cadastro FROM listadepreseca WHERE IPdispositivo = '$ip' AND data = '$dataHoje'";
     $salvar = mysqli_query($conexao, $sql);
 
+
 // $_SESSION['ip'] = ip
 
 // caso não exista primeira presença neste ip nesta data gera cadastro de presença marca segunda chamada
