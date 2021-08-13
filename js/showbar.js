@@ -33,4 +33,13 @@ function openNav(){
         menu.style.transform = 'translate(230px,0)'
     });
 }
-
+menu.addEventListener('click',function(){
+    var animatemenu = menu.animate([
+        {transform:'translate(230px,0)'},
+        {transform:'translate(0px,0)'}
+    ],500)
+    animatemenu.addEventListener('finish',function(){
+        menu.style.transform = 'translate(-230px,0)';
+    });
+    
+});
