@@ -1,0 +1,47 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(214, 226, 236);
+}
+.logo{
+    width: 30%;
+    height: 30%;
+    background-image: url('../img/bluelogo.png');
+    background-size: 100% 100%;
+    margin: 0;
+
+}
+.formulario{
+    margin: 0;
+    background-color: blue;
+    width: 30%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: azure;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px black;
+    padding: 5%;
+}  
+.formulario h1{
+    text-align: center;
+}
+.formulario .registro{
+    display: flex;
+    flex-direction: column;
+}
+.formulario .registro label{
+    margin-top: 20%;
+    font-weight: bolder;
+    font-size: larger;
+}
+.formulario .registro input{
+    height: 40px;
+}
+.formulario .registro .botao{
+    margin-top: 10%;
+    padding: 5%;
+}
