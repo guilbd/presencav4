@@ -12,11 +12,6 @@
         if($salvar) {
             mysqli_close($conexao);
             $id = mysqli_fetch_assoc($salvar);
-            $dtz = new DateTimeZone("America/Sao_Paulo");
-            $dt = new DateTime("now", $dtz);
-            $horarioPresenca = $dt->format("H:i:s");
-            $dataHoje = $dt->format("Y-m-d");
-            
             try{
                 $sql = "INSERT INTO listadepreseca (IPdispositivo,Presenca1,id_cadastro,data) VALUES ('$ip','$horarioPresenca','$id','$dataHoje");
                 mysqli_query($conexao, $sql);

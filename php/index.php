@@ -1,3 +1,11 @@
+<?php
+    session_start();
+    $dtz = new DateTimeZone("America/Sao_Paulo");
+    $dt = new DateTime("now", $dtz);
+    $_SESSION['datahoje'] = $dt->format("Y-m-d");
+    $_SESSION['time'] = $dt->format("H:i:s");
+?>
+
 <script>
     var now = new Date;
     if ((now.getHours() == 19 && (now.getMinutes() >= 0 || now.getMinutes() < 16))) {

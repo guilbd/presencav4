@@ -1,21 +1,44 @@
 <?php
-
+    
+    include_once("conexao.php");
 //verificar data primeira presença por ip e primeira data da presença se existir marca segunda presença
-$dtz = new DateTimeZone("America/Sao_Paulo");
-$dt = new DateTime("now", $dtz);
-$day = $dt->format('d');
-$dataHoje = $dt->format("Y-m-d");
-$horarioPresenca = $dt->format("H:i:s");
-$sql = "SELECT id_cadastro FROM listadepreseca WHERE IPdispositivo = '$ip' AND data = '$dataHoje'";
+    $sql = "SELECT id_cadastro FROM listadepreseca WHERE IPdispositivo = '$ip'";
     $salvar = mysqli_query($conexao, $sql);
+    mysqli_close($conexao);
+    // Caso exista alguma presença com o ip do cliente
+    if($salvar){
+        mysqli_close($conexao);
+        $sql = "SELECT id_cadastro FROM listadepreseca WHERE IPdispositivo = '$ip' AND data = '".$_SESSION['datahoje']."'";
+        $salvar = mysqli_query($conexao, $sql);
+        //caso exista uma presentaça com o ip na data atual
+        if($salvar){
+            mysqli_close($conexao);
+            $sql = "UPDATE listadepresenca SET Presenca2='".$_SESSION['time']."' WHERE id=$salvar";
+            // caso o update tenha dado certo 
+            if($conexao -> query($sql)){
+                echo"<script language='javascript' type='text/javascript'>
+                alert('A sua segunda presença foi registrada');
+                </script>";
+            }
+            // caso o update não tenha dado certo
+            else{
+                echo"<script language='javascript' type='text/javascript'>
+                alert('Erro ao registrar segunda presença');
+                </script>";
+            }
+        }
+        // caso exista presença no ip mas não exista na data atual
+        else{
+            $sql = "INSERT INTO listadepreseca (IPdispositivo,Presenca2,id_cadastro,data) VALUES ('$ip','".$_SESSION['time']."','$id','".$_SESSION['datahoje']."'");
+        }
+    }
+    // caso não exista presença com o ip do cliente
+    else{
+        echo"<script language='javascript' type='text/javascript'>
+				    alert('Seu ip não está cadastrado;');
+				    window.location.href='cadastro.php'";
+    }
 
-
-// $_SESSION['ip'] = ip
-
-// caso não exista primeira presença neste ip nesta data gera cadastro de presença marca segunda chamada
-
-
-// caso não exista o ip redireciona para cadastro
 
 
 ?>
