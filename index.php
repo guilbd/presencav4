@@ -44,13 +44,15 @@
         $mensagem = "Desative o Adblock para que que o sistema possa funcionar!";
         if(isset($_GET['ip'])){
             $_SESSION['ip'] = $_GET['ip'];
-            $dtz = new DateTimeZone("America/Sao_Paulo");
+            $dtz = new DateTimeZone("Asia/Shanghai");
             $dt = new DateTime("now", $dtz);
             $_SESSION['datahoje'] = $dt->format("Y-m-d");
             $_SESSION['time'] = $dt->format("H:i:s");
+            $datata = $_SESSION['datahoje'];
+           
             include_once("php/presenca.php");
-            if (intval($dt->format("H")) == 11 && (intval($dt->format("i")) > -1 && intval($dt->format("i")) < 60)) {
-                $mensagem = presenca('Presenca1');
+            if (intval($dt->format("H")) == 5 && (intval($dt->format("i")) > -1 && intval($dt->format("i")) < 60)) {
+                $mensagem = presenca('Presenca3');
                 
             } 
             else {
