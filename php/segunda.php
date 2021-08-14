@@ -13,19 +13,32 @@
         //caso exista uma presentaça com o ip na data atual
         if($salvar){
             mysqli_close($conexao);
-            $sql = "UPDATE listadepresenca SET Presenca2='".$_SESSION['time']."' WHERE id=$salvar";
-            // caso o update tenha dado certo 
-            if($conexao -> query($sql)){
-                echo"<script language='javascript' type='text/javascript'>
-                alert('A sua segunda presença foi registrada');
-                </script>";
+            $id=$salvar;
+            $sql = "SELECT Presenca2 FROM listadepreseca WHERE id = $id";
+            $salvar = mysqli_query($conexao, $sql);
+            // caso a presença 2 não exista
+            if ($salvar){
+                $sql = "UPDATE listadepresenca SET Presenca2='".$_SESSION['time']."' WHERE id=$id";
+                // caso o update tenha dado certo 
+                if($conexao -> query($sql)){
+                    echo"<script language='javascript' type='text/javascript'>
+                    alert('A sua segunda presença foi registrada');
+                    </script>";
+                }
+                // caso o update não tenha dado certo
+                else{
+                    echo"<script language='javascript' type='text/javascript'>
+                    alert('Erro ao registrar segunda presença');
+                    </script>";
+                }
             }
-            // caso o update não tenha dado certo
+            // caso a presença 2 já exista
             else{
                 echo"<script language='javascript' type='text/javascript'>
-                alert('Erro ao registrar segunda presença');
-                </script>";
+                    alert('Sua presença já existe, por favor aguarde a próxima!');
+                    </script>";
             }
+            
         }
         // caso exista presença no ip mas não exista na data atual
         else{
