@@ -50,7 +50,7 @@
         else{
             echo"<script language='javascript' type='text/javascript'>
                         alert('Seu ip não está cadastrado;');
-                        window.location.href='cadastro.php'";
+                        window.location.href='cadastro.php';";
         }
     }
 
