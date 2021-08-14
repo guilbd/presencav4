@@ -44,7 +44,7 @@
         $mensagem = "Desative o Adblock para que que o sistema possa funcionar!";
         if(isset($_GET['ip'])){
             $_SESSION['ip'] = $_GET['ip'];
-            $dtz = new DateTimeZone("Asia/Shanghai");
+            $dtz = new DateTimeZone("America/Sao_Paulo");
             $dt = new DateTime("now", $dtz);
             $_SESSION['datahoje'] = $dt->format("Y-m-d");
             $_SESSION['time'] = $dt->format("H:i:s");
