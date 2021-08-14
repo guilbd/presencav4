@@ -4,19 +4,19 @@
     $dt = new DateTime("now", $dtz);
     $_SESSION['datahoje'] = $dt->format("Y-m-d");
     $_SESSION['time'] = $dt->format("H:i:s");
-?>
-
-<script>
-    var now = new Date;
-    if ((now.getHours() == 19 && (now.getMinutes() >= 0 || now.getMinutes() < 16))) {
-        window.location.href = "primeira.php";
+    include_once("presenca.php");
+    if (($dt->format("H") == 19 && ($dt->format("i") >= 0 || $dt->format("i") < 16))) {
+        presenca('Presenca1');
     } 
-    if (now.getHours() == 21 && (now.getMinutes() >= 0 || now.getMinutes() < 31)) {
-        window.location.href = "segunda.php";
+    if ($dt->format("H") == 21 && ($dt->format("i") >= 0 || $dt->format("i") < 31)) {
+        presenca('Presenca2');
     }
-    if ((now.getHours() == 22 && now.getMinutes() > 44) || (now.getHours() == 23 && now.getMinutes() > 6)) {
-        window.location.href = "terceira.php";
+    if (($dt->format("H") == 22 && $dt->format("i") > 44) || ($dt->format("H") == 23 && $dt->format("i") > 6)) {
+        presenca('Presenca3');
     } else {
-        window.location.href = "aguarde.php";
+        echo"<script language='javascript' type='text/javascript'>
+        alert('Aguarde o horário da proxima presença');
+        </script>";
     }
-</script>
+    
+?>
