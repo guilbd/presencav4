@@ -4,10 +4,9 @@
 
 
 
-- front end part - in process
-- back end part - not started
-- back end web server - not started
-- db part - not started
+- front end part - finished
+- back end part - finished
+- db part - finished
 
 
 
