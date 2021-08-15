@@ -51,12 +51,12 @@
             $datata = $_SESSION['datahoje'];
            
             include_once("php/presenca.php");
-            if (intval($dt->format("H")) == 18 && (intval($dt->format("i")) > -1 && intval($dt->format("i")) < 60)) {
+            if (intval($dt->format("H")) == 19 && (intval($dt->format("i")) >= 0 && intval($dt->format("i")) < 16)) {
                 $mensagem = presenca('Presenca1');
                 
             } 
             else {
-                if (intval($dt->format("H")) == 21 && (intval($dt->format("i")) > -1 || intval($dt->format("i")) < 31)) {
+                if (intval($dt->format("H")) == 21 && (intval($dt->format("i")) >= 0 && intval($dt->format("i")) < 31)) {
                 $mensagem = presenca('Presenca2');
                 }else{
                     if ((intval($dt->format("H")) == 22 && intval($dt->format("i")) > 44) || (intval($dt->format("H")) == 23 && intval($dt->format("i")) > 6)) {

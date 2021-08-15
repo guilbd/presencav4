@@ -56,7 +56,7 @@
                     
                     if ($conexao->query($sql) === TRUE) {
                         $conexao->close();
-                        return "A sua presença foi registrada";
+                        return substr($presenca, -1)."ª Presença incluida com sucesso!";
                     }
                     // caso o update não tenha dado certo
                     else{
@@ -84,10 +84,7 @@
                 $sql = "INSERT INTO listadepreseca (IPdispositivo,".$presenca.",id_cadastro,data) VALUES ('".$_SESSION['ip']."','".$_SESSION['time']."','".$id."','".$_SESSION['datahoje']."')";
                 if ($conexao->query($sql) === TRUE) {
                    
-                    echo"<script language='javascript' type='text/javascript'>
-                            alert('A sua presença está concluída');
-                            window.location.href='index.php';
-                            </script>";
+                    return substr($presenca, -1)."ª Presença incluida com sucesso!";
                 
                     }else{
                         $valor =$conexao->error;
