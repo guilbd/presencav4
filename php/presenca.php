@@ -115,10 +115,7 @@
                     
                     if ($conexao->query($sql) === TRUE) {
                         $conexao->close();
-                        echo"<script language='javascript' type='text/javascript'>
-                                alert('A sua presença está concluída');
-                                window.location.href='index.php';
-                                </script>";
+                        return substr($presenca, -1)."ª Presença incluida com sucesso!";
                     
                         }else{
                             $valor =$conexao->error;

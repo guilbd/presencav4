@@ -42,8 +42,9 @@
     }
     else{
         $mensagem = "Desative o Adblock para que que o sistema possa funcionar!";
-        if(isset($_GET['ip'])){
-            $_SESSION['ip'] = $_GET['ip'];
+        if(isset($_POST['ip'])){
+            
+            $_SESSION['ip'] = $_POST['ip'];
             $dtz = new DateTimeZone("America/Sao_Paulo");
             $dt = new DateTime("now", $dtz);
             $_SESSION['datahoje'] = $dt->format("Y-m-d");
@@ -72,11 +73,25 @@
             echo"
                 <script src='js/jquery-3.6.0.min.js'></script>
                 <script>
+                function redirectPost(url,data) {
+                    var form = document.createElement('form');
+                    document.body.appendChild(form);
+                    form.method = 'post';
+                    form.action = url;
+                    for (var name in data) {
+                        var input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = 'ip';
+                        input.value = data;
+                        form.appendChild(input);
+                    }
+                    form.submit();
+                }
                 $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {
                     var values = JSON.parse(JSON.stringify(data, null, 2));
-                    console.log(values.ip);
-                    window.location.href='index.php?ip='+values.ip;
+                    redirectPost('index.php',values.ip);
                   });
+                  
                     
                 </script>";
             //         var ip;
