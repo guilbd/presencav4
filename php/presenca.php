@@ -56,7 +56,7 @@
                     
                     if ($conexao->query($sql) === TRUE) {
                         $conexao->close();
-                        return substr($presenca, -1)."ª Presença incluida com sucesso!";
+                        return "Sua ".substr($presenca, -1)."ª Presença foi concluida com sucesso as ".$_SESSION['time']." do dia ".$_SESSION['datahoje']."!";
                     }
                     // caso o update não tenha dado certo
                     else{
@@ -84,7 +84,7 @@
                 $sql = "INSERT INTO listadepreseca (IPdispositivo,".$presenca.",id_cadastro,data) VALUES ('".$_SESSION['ip']."','".$_SESSION['time']."','".$id."','".$_SESSION['datahoje']."')";
                 if ($conexao->query($sql) === TRUE) {
                    
-                    return substr($presenca, -1)."ª Presença incluida com sucesso!";
+                        return "Sua ".substr($presenca, -1)."ª Presença foi concluida com sucesso as ".$_SESSION['time']." do dia ".$_SESSION['datahoje']."!";
                 
                     }else{
                         $valor =$conexao->error;
@@ -115,7 +115,7 @@
                     
                     if ($conexao->query($sql) === TRUE) {
                         $conexao->close();
-                        return substr($presenca, -1)."ª Presença incluida com sucesso!";
+                        return "Sua ".substr($presenca, -1)."ª Presença foi concluida com sucesso as ".$_SESSION['time']." do dia ".$_SESSION['datahoje']."!";
                     
                         }else{
                             $valor =$conexao->error;
@@ -127,7 +127,7 @@
                     
                 }else {
                     echo"<script language='javascript' type='text/javascript'>
-                    alert('Seu cpf não está cadastrado;');
+                    alert('Seu ip não está cadastrado;');
                     window.location.href='index.php?registro=registro';
                 </script>
                 ";
@@ -136,7 +136,7 @@
                 }
             }else {
                 echo"<script language='javascript' type='text/javascript'>
-                alert('Seu cpf não está cadastrado;');
+                alert('Seu ip não está cadastrado;');
                 window.location.href='index.php?registro=registro';
             </script>
             ";
