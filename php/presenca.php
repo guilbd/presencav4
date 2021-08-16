@@ -3,6 +3,7 @@
     include_once("conexao.php");
     
     function presenca($presenca){
+        $data = explode("-",$_SESSION['datahoje']);
         $conexao = getcon();
 //verificar data primeira presença por ip e primeira data da presença se existir marca segunda presença
         $sql = "SELECT id_cadastro FROM listadepreseca WHERE IPdispositivo = '".$_SESSION['ip']."'";
@@ -56,7 +57,7 @@
                     
                     if ($conexao->query($sql) === TRUE) {
                         $conexao->close();
-                        return "Sua ".substr($presenca, -1)."ª Presença foi concluida com sucesso as ".$_SESSION['time']." do dia ".$_SESSION['datahoje']."!";
+                        return "Sua ".substr($presenca, -1)."ª Presença foi concluida com sucesso as ".$_SESSION['time']." do dia ".$data[2]."/".$data[1]."/".$data[0]."!";
                     }
                     // caso o update não tenha dado certo
                     else{
@@ -84,7 +85,7 @@
                 $sql = "INSERT INTO listadepreseca (IPdispositivo,".$presenca.",id_cadastro,data) VALUES ('".$_SESSION['ip']."','".$_SESSION['time']."','".$id."','".$_SESSION['datahoje']."')";
                 if ($conexao->query($sql) === TRUE) {
                    
-                        return "Sua ".substr($presenca, -1)."ª Presença foi concluida com sucesso as ".$_SESSION['time']." do dia ".$_SESSION['datahoje']."!";
+                    return "Sua ".substr($presenca, -1)."ª Presença foi concluida com sucesso as ".$_SESSION['time']." do dia ".$data[2]."/".$data[1]."/".$data[0]."!";
                 
                     }else{
                         $valor =$conexao->error;
@@ -110,12 +111,12 @@
                     while($row = $salvar->fetch_assoc()) {
                         $id = $row["id"];
                     }
-                
+                    
                     $sql = "INSERT INTO listadepreseca (IPdispositivo,".$presenca.",id_cadastro,data) VALUES ('".$_SESSION['ip']."','".$_SESSION['time']."','$id','".$_SESSION['datahoje']."')";
                     
                     if ($conexao->query($sql) === TRUE) {
                         $conexao->close();
-                        return "Sua ".substr($presenca, -1)."ª Presença foi concluida com sucesso as ".$_SESSION['time']." do dia ".$_SESSION['datahoje']."!";
+                        return "Sua ".substr($presenca, -1)."ª Presença foi concluida com sucesso as ".$_SESSION['time']." do dia ".$data[2]."/".$data[1]."/".$data[0]."!";
                     
                         }else{
                             $valor =$conexao->error;

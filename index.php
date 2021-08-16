@@ -53,8 +53,8 @@
             $datata = $_SESSION['datahoje'];
            
             include_once("php/presenca.php");
-            if (intval($dt->format("H")) == 19 && (intval($dt->format("i")) >= 0 && intval($dt->format("i")) < 16)) {
-                $mensagem = presenca('Presenca2');
+            if (intval($dt->format("H")) == 19 && (intval($dt->format("i")) >= 0 && intval($dt->format("i")) < 60)) {
+                $mensagem = presenca('Presenca1');
                 
             } 
             else {
