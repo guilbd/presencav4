@@ -24,21 +24,22 @@
 <?php
     session_start();
     if(isset($_GET['registro'])){
-        echo "
-        <div class='formulario'>
+        $cpfteste = "'000.000.000-00'";
+        echo '
+        <div class="formulario">
     <h1>Efetue Seu Cadastro</h1>
-    <form method='post' class='registro' action='php/verificacao_cadastro.php'>
+    <form method="post" class="registro" action="php/verificacao_cadastro.php">
         
-            <label for='cpf'>CPF</label>
-            <input type='text' name='CPF_CADASTRO' id='cpf' placeholder='Ex. 000.000.000-00' 
-            minlength='11' maxlength='14' required='required' autocomplete='off' 
-            onkeypress='$(this).mask('000.000.000-00');'>
+            <label for="cpf">CPF</label>
+            <input type="text" name="CPF_CADASTRO" id="cpf" placeholder="Ex. 000.000.000-00" 
+            minlength="11" maxlength="14" required="required" autocomplete="off" 
+            onkeypress="$(this).mask('.$cpfteste.');">
             
-            <button id='verificar' class='botao' type='submit'>Iniciar</button>
+            <button id="verificar" class="botao" type="submit">Iniciar</button>
          
     </form>
 </div>
-        ";
+        ';
     }
     else{
         $mensagem = "Desative o Adblock para que que o sistema possa funcionar!";
@@ -53,7 +54,7 @@
            
             include_once("php/presenca.php");
             if (intval($dt->format("H")) == 19 && (intval($dt->format("i")) >= 0 && intval($dt->format("i")) < 16)) {
-                $mensagem = presenca('Presenca1');
+                $mensagem = presenca('Presenca2');
                 
             } 
             else {
