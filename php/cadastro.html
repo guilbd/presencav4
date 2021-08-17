@@ -17,14 +17,14 @@
 
 <body>
     <header class="logo">
-
+        <img class="img" src="../img/bluelogo.png">
     </header>
     <div class="formulario">
         <h1>Efetue Seu Cadastro</h1>
         <form method="post" class="registro" action="verificacao_cadastro.php">
             
                 <label for="cpf">CPF</label>
-                <input type="text" name="CPF_CADASTRO" id="cpf" placeholder="Ex. 000.000.000-00" minlength="11" maxlength="14" required="required" autocomplete="off" onkeypress="$(this).mask('000.000.000-00');">
+                <input type="text" name="CPF_CADASTRO" id="cpf" maxlength="14" size="5" placeholder="Ex. 000.000.000-00" minlength="11" maxlength="14" required="required" autocomplete="off" onkeypress="$(this).mask('000.000.000-00');">
                 
                 <button id="verificar" class="botao" type="submit">Iniciar</button>
                

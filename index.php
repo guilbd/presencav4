@@ -17,7 +17,7 @@
 
 <body>
     <header class="logo">
-
+        <img class="img" src="img/bluelogo.png">
     </header>
     
 
@@ -27,7 +27,7 @@
         $cpfteste = "'000.000.000-00'";
         echo '
         <div class="formulario">
-    <h1>Efetue Seu Cadastro</h1>
+    <h1>Cadastre seu CPF</h1>
     <form method="post" class="registro" action="php/verificacao_cadastro.php">
         
             <label for="cpf">CPF</label>
@@ -35,7 +35,7 @@
             minlength="11" maxlength="14" required="required" autocomplete="off" 
             onkeypress="$(this).mask('.$cpfteste.');">
             
-            <button id="verificar" class="botao" type="submit">Iniciar</button>
+            <button id="verificar" class="botao" type="submit">Cadastrar</button>
          
     </form>
 </div>
@@ -53,7 +53,7 @@
             $datata = $_SESSION['datahoje'];
            
             include_once("php/presenca.php");
-            if (intval($dt->format("H")) == 19 && (intval($dt->format("i")) >= 0 && intval($dt->format("i")) < 60)) {
+            if (intval($dt->format("H")) == 16 && (intval($dt->format("i")) >= 0 && intval($dt->format("i")) < 60)) {
                 $mensagem = presenca('Presenca1');
                 
             } 
