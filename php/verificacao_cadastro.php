@@ -7,7 +7,7 @@
     }
     $conexao = getcon();
     $_SESSION['cpf']=$cpf;
-    $sql = "SELECT id FROM cadastro WHERE CPF = '".$_SESSION['cpf']."'";
+    $sql = "SELECT id FROM alunos WHERE CPF = '".$_SESSION['cpf']."'";
     $salvar = mysqli_query($conexao, $sql);
                
     if(mysqli_num_rows($salvar)>0) {

@@ -10,6 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/cadastro.css">
     <link rel="stylesheet" href="css/body.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <script src="js/verificacpf.js" defer></script>
+    <script src="js/modal.js" defer></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <title>Cadastro</title>
@@ -53,18 +56,17 @@
             $datata = $_SESSION['datahoje'];
            
             include_once("php/presenca.php");
-            if (intval($dt->format("H")) == 16 && (intval($dt->format("i")) >= 0 && intval($dt->format("i")) < 60)) {
-                $mensagem = presenca('Presenca1');
-                
+            if ((intval($dt->format("H")) >= 18 && intval($dt->format("i")) >= 50)&&(intval($dt->format("H")) <= 19 && intval($dt->format("i"))<=30)) {
+                $mensagem = presenca('Presenca1'); 
             } 
             else {
-                if (intval($dt->format("H")) == 21 && (intval($dt->format("i")) >= 0 && intval($dt->format("i")) < 31)) {
+                if ((intval($dt->format("H")) >= 20 && intval($dt->format("i")) >= 45)&&(intval($dt->format("H")) <= 21 && intval($dt->format("i"))<=45)) {
                 $mensagem = presenca('Presenca2');
                 }else{
-                    if ((intval($dt->format("H")) == 22 && intval($dt->format("i")) > 44) || (intval($dt->format("H")) == 23 && intval($dt->format("i")) > 6)) {
+                    if ((intval($dt->format("H")) >= 22 && intval($dt->format("i")) >= 30)&&(intval($dt->format("H")) <= 23 && intval($dt->format("i"))<=10)) {
                         $mensagem = presenca('Presenca3');
                     } else {
-                        $mensagem = "Aguarde o horário da proxima presença ".(intval($dt->format("H")) == 10);
+                        $mensagem = outTime();
                     }
                 }
             }
@@ -109,6 +111,20 @@
         ";
     }
 ?>
+<div id="notice" class="modal">
+    <div class="content">
+        <h2 class="title">Este Controle de Presença captura o seu IP e seu CPF.</h2> 
+        <p>Caso tenha mais de um aluno usando o mesmo IP, entre em contato com a Blue EdTech.</p>
+        <p> Caso use IP dinâmico, saiba que o CPF será solicitado todas as vezes.</p>
+        <p>A veracidade dos dados fornecidos são de responsabilidade do usuário</p>
+        <button class="concordo">Concordo</button>
+    </div>
+</div>
+<footer class="avisar">
+    <p>
+    Caso encontre erro ou tenha uma sugestao de melhoria, fale com Blue EdTech através do Discord.
+    </p>
+</footer>
 </body>
 
 </html>

@@ -9,10 +9,20 @@
         $sql = "SELECT id_cadastro FROM listadepreseca WHERE IPdispositivo = '".$_SESSION['ip']."'";
         $salvar =mysqli_query($conexao, $sql);
         $id = 0;
+        $nome = "";
+        while($row = $salvar->fetch_assoc()) {
+            $id = $row["id_cadastro"];
+        }
+        $nome = "";
+        while($row = $salvar->fetch_assoc()) {
+            $id = $row["id_cadastro"];
+        }
         if(mysqli_num_rows($salvar)>0){
+            $sql = "SELECT nome FROM alunos WHERE id = '".$id."'";
+            $salvar = mysqli_query($conexao, $sql);
             while($row = $salvar->fetch_assoc()) {
-                $id = $row["id_cadastro"];
-            }
+                $nome = $row["nome"];
+            }  
         }
         // Caso exista alguma presença com o ip do cliente
         if(mysqli_num_rows($salvar)>0){
@@ -57,7 +67,7 @@
                     
                     if ($conexao->query($sql) === TRUE) {
                         $conexao->close();
-                        return "Sua ".substr($presenca, -1)."ª Presença foi concluida com sucesso as ".$_SESSION['time']." do dia ".$data[2]."/".$data[1]."/".$data[0]."!";
+                        return "$nome .Sua ".substr($presenca, -1)."ª Presença foi registrada em: ".$_SESSION['time']." do dia ".$data[2]."/".$data[1]."/".$data[0]."!";
                     }
                     // caso o update não tenha dado certo
                     else{
@@ -66,7 +76,7 @@
                 }
                 // caso a presença 2 já exista
                 else{
-                    return "Sua presença já existe, por favor aguarde a próxima!";
+                    return ucfirst(strtolower($nome))." . A sua ".substr($presenca, -1)."ª presença já foi registrada em: ".$data[2]."/".$data[1]."/".$data[0]." ás: ".$valor;
                 }
                 
             }
@@ -85,7 +95,7 @@
                 $sql = "INSERT INTO listadepreseca (IPdispositivo,".$presenca.",id_cadastro,data) VALUES ('".$_SESSION['ip']."','".$_SESSION['time']."','".$id."','".$_SESSION['datahoje']."')";
                 if ($conexao->query($sql) === TRUE) {
                    
-                    return "Sua ".substr($presenca, -1)."ª Presença foi concluida com sucesso as ".$_SESSION['time']." do dia ".$data[2]."/".$data[1]."/".$data[0]."!";
+                    return ucfirst(strtolower($nome)).".Sua ".substr($presenca, -1)."ª Presença foi registrada em: ".$_SESSION['time']." do dia ".$data[2]."/".$data[1]."/".$data[0]."!";
                 
                     }else{
                         $valor =$conexao->error;
@@ -102,21 +112,23 @@
         else{
             if(isset($_SESSION['cpf'])){
                 
-                $sql = "SELECT id FROM cadastro WHERE CPF = '".$_SESSION['cpf']."'";
+                $sql = "SELECT id, nome FROM alunos WHERE cpf = '".$_SESSION['cpf']."'";
                 $salvar = mysqli_query($conexao, $sql);
                 
                 if(mysqli_num_rows($salvar)>0) {
                     
                     $id = "";
+                    $nome = "";
                     while($row = $salvar->fetch_assoc()) {
                         $id = $row["id"];
+                        $nome = $row["nome"];
                     }
                     
                     $sql = "INSERT INTO listadepreseca (IPdispositivo,".$presenca.",id_cadastro,data) VALUES ('".$_SESSION['ip']."','".$_SESSION['time']."','$id','".$_SESSION['datahoje']."')";
                     
                     if ($conexao->query($sql) === TRUE) {
                         $conexao->close();
-                        return "Sua ".substr($presenca, -1)."ª Presença foi concluida com sucesso as ".$_SESSION['time']." do dia ".$data[2]."/".$data[1]."/".$data[0]."!";
+                        return ucfirst(strtolower($nome)).".Sua ".substr($presenca, -1)."ª Presença foi registrada em: ".$_SESSION['time']." do dia ".$data[2]."/".$data[1]."/".$data[0]."!";
                     
                         }else{
                             $valor =$conexao->error;
@@ -146,6 +158,25 @@
             }
         }
     }
-
+    function outTime(){
+        $conexao = getcon();
+        $sql = "SELECT id_cadastro FROM listadepreseca WHERE IPdispositivo = '".$_SESSION['ip']."'";
+        $salvar =mysqli_query($conexao, $sql);
+        $id = 0;
+        $nome = "";
+        while($row = $salvar->fetch_assoc()) {
+            $id = $row["id_cadastro"];
+        }
+        if(mysqli_num_rows($salvar)>0){
+            $sql = "SELECT nome FROM alunos WHERE id = '".$id."'";
+            $salvar = mysqli_query($conexao, $sql);
+            while($row = $salvar->fetch_assoc()) {
+                $nome = $row["nome"];
+            }  
+            if(mysqli_num_rows($salvar)>0) {
+                return ucfirst(strtolower($nome)).".<br> O horário do registro de chamada está incorreto.";
+            }
+        }
+    }
 
 ?>

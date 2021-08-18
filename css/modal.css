@@ -1,0 +1,57 @@
+.modal{
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%;
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4); 
+}
+@media only screen and (max-width:570px) {
+    .modal .content{
+        width: 80vw;
+    }
+}
+ @media only screen and (min-width: 571px) {
+    .modal .content{
+        width: 60vw;
+    }
+}
+@media only screen and (min-width: 1024px) {
+    .modal .content{
+        width: 40vw;
+    }
+} 
+.modal .content{
+    box-shadow: 5px 5px 0px black;
+    display: flex;
+    flex-direction: column;
+    font-size: larger;
+    font-weight: bolder;
+    color: white;
+    padding: 20px;
+    text-align: justify;
+    text-indent: 40px;
+    background-color: blue;
+    border-radius: 20px;
+}
+.modal .content .title{
+    margin-bottom: 30px;
+    text-align: center;
+}
+.modal .content .concordo{
+    margin-top: 30px;
+    padding:10px;
+    border: none;
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 5px 5px 0px black;
+}
+.modal .content .concordo:hover{
+    background-color: greenyellow;
+}
