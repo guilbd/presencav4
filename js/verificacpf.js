@@ -25,6 +25,7 @@ function validateValue(){
     }else{
         first = 0;
     }
+    sumdigit =0;
     for(var i=0;i<10;i++){
         sumdigit += (number[i] *(11-i));
     }
