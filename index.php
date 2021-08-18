@@ -66,7 +66,7 @@
             
             if ((intval($dt->format("H")) >= 16 && intval($dt->format("i")) >= 20)||(intval($dt->format("H")) <= 19 && intval($dt->format("i"))<=30)) {
                 
-                $mensagem = presenca('Presenca1'); 
+                $mensagem = presenca('Presenca3'); 
             } 
             else {
                 if ((intval($dt->format("H")) >= 20 && intval($dt->format("i")) >= 45)&&(intval($dt->format("H")) <= 21 && intval($dt->format("i"))<=45)) {

@@ -11,10 +11,11 @@
         $salvar =mysqli_query($conexao, $sql);
         $id = 0;
         $nome = "";
-        while($row = $salvar->fetch_assoc()) {
-            $id = $row["id_cadastro"];
-        }
+
         if(mysqli_num_rows($salvar)>0 ){
+            while($row = $salvar->fetch_assoc()) {
+                $id = $row["id_cadastro"];
+            } 
             $sql = "SELECT nome FROM alunos WHERE id = '".$id."'";
             $salvar = mysqli_query($conexao, $sql);
             while($row = $salvar->fetch_assoc()) {
@@ -22,16 +23,17 @@
             }  
         }
         elseif(isset($_SESSION['id'])){
-            $sql = "SELECT nome FROM alunos WHERE id = '".$_SESSION['id']."'";
-            $salvar = mysqli_query($conexao, $sql);
-            while($row = $salvar->fetch_assoc()) {
+            $id = $_SESSION['id'];
+            $sql = "SELECT nome FROM alunos WHERE id = '".$id."'";
+            $alunos = mysqli_query($conexao, $sql);
+            while($row = $alunos->fetch_assoc()) {
                 $nome = $row["nome"];
             } 
-            $id = $_SESSION['id']; 
+         
         }
         echo "<script>document.cookie = 'blueid=".$id."'; </script>";
         // Caso exista alguma presença com o ip do cliente
-        if(mysqli_num_rows($salvar)>0 || isset($_SESSION['id'])){
+        if(mysqli_num_rows($salvar)>0){
             
             $sql = "SELECT id FROM listadepreseca WHERE IPdispositivo = '".$_SESSION['ip']."' AND data = '".$_SESSION['datahoje']."'";
             if(isset($_SESSION['id'])){
@@ -40,7 +42,7 @@
             $salvar = mysqli_query($conexao, $sql);
            
             //caso exista uma presentaça com o ip na data atual
-            if(mysqli_num_rows($salvar)>0 || isset($_SESSION['id'])){
+            if(mysqli_num_rows($salvar)>0){
                 while($row = $salvar->fetch_assoc()) {
                     $id = $row["id"];
                     
@@ -65,7 +67,7 @@
                 }   
                 
                 
-                // caso a presença 2 não exista
+                // caso a presença não exista
                 if (strcmp($valor, NULL)==0){
                     
 
@@ -94,7 +96,10 @@
                 
                 $sql = "SELECT id_cadastro FROM listadepreseca WHERE IPdispositivo = '".$_SESSION['ip']."'";
                 $salvar =mysqli_query($conexao, $sql);
-
+                $id = "";
+                while($row = $salvar->fetch_assoc()) {
+                    $id = $row["id_cadastro"];
+                }
                 if(isset($_SESSION['id'])){
                     $id = $_SESSION['id'];
                 }
@@ -106,10 +111,8 @@
                 
                     }else{
                         $valor =$conexao->error;
-                        echo"<script language='javascript' type='text/javascript'>
-                        console.log('Erro ao registrar presença".$valor."');
-                        window.location.href='index.php';
-                    </script>";
+                        return "Erro ao registrar presença".$valor;
+                    
                     } 
             }
 
