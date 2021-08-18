@@ -1,6 +1,7 @@
 let cpf = document.getElementById('cpf');
 let button = document.getElementById('verificar');
 cpf.addEventListener("keyup", validateValue);
+cpf.addEventListener("focusout", validateValue);
 button.disabled = true;
 button.style.boxShadow ="5px 5px 0px #fd0101";
 function validateValue(){
