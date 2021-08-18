@@ -67,7 +67,7 @@
                     
                     if ($conexao->query($sql) === TRUE) {
                         $conexao->close();
-                        return "$nome .Sua ".substr($presenca, -1)."ª Presença foi registrada em: ".$_SESSION['time']." do dia ".$data[2]."/".$data[1]."/".$data[0]."!";
+                        return ucfirst(strtolower($nome)).".<br>Sua ".substr($presenca, -1)."ª Presença foi registrada em: ".$_SESSION['time']." do dia ".$data[2]."/".$data[1]."/".$data[0]."!";
                     }
                     // caso o update não tenha dado certo
                     else{
@@ -95,7 +95,7 @@
                 $sql = "INSERT INTO listadepreseca (IPdispositivo,".$presenca.",id_cadastro,data) VALUES ('".$_SESSION['ip']."','".$_SESSION['time']."','".$id."','".$_SESSION['datahoje']."')";
                 if ($conexao->query($sql) === TRUE) {
                    
-                    return ucfirst(strtolower($nome)).".Sua ".substr($presenca, -1)."ª Presença foi registrada em: ".$_SESSION['time']." do dia ".$data[2]."/".$data[1]."/".$data[0]."!";
+                    return ucfirst(strtolower($nome)).".<br>Sua ".substr($presenca, -1)."ª Presença foi registrada em: ".$_SESSION['time']." do dia ".$data[2]."/".$data[1]."/".$data[0]."!";
                 
                     }else{
                         $valor =$conexao->error;
@@ -128,7 +128,7 @@
                     
                     if ($conexao->query($sql) === TRUE) {
                         $conexao->close();
-                        return ucfirst(strtolower($nome)).".Sua ".substr($presenca, -1)."ª Presença foi registrada em: ".$_SESSION['time']." do dia ".$data[2]."/".$data[1]."/".$data[0]."!";
+                        return ucfirst(strtolower($nome)).".<br>Sua ".substr($presenca, -1)."ª Presença foi registrada em: ".$_SESSION['time']." do dia ".$data[2]."/".$data[1]."/".$data[0]."!";
                     
                         }else{
                             $valor =$conexao->error;

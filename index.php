@@ -56,14 +56,14 @@
             $datata = $_SESSION['datahoje'];
            
             include_once("php/presenca.php");
-            if ((intval($dt->format("H")) >= 18 && intval($dt->format("i")) >= 50)||(intval($dt->format("H")) <= 19 && intval($dt->format("i"))<=30)) {
-                $mensagem = presenca('Presenca1'); 
+            if ((intval($dt->format("H")) >= 18 && intval($dt->format("i")) >= 50)&&(intval($dt->format("H")) <= 19 && intval($dt->format("i"))<=30)) {
+                $mensagem = presenca('Presenca3'); 
             } 
             else {
-                if ((intval($dt->format("H")) >= 20 && intval($dt->format("i")) >= 45)||(intval($dt->format("H")) <= 21 && intval($dt->format("i"))<=45)) {
+                if ((intval($dt->format("H")) >= 20 && intval($dt->format("i")) >= 45)&&(intval($dt->format("H")) <= 21 && intval($dt->format("i"))<=45)) {
                 $mensagem = presenca('Presenca2');
                 }else{
-                    if ((intval($dt->format("H")) >= 22 && intval($dt->format("i")) >= 30)||(intval($dt->format("H")) <= 23 && intval($dt->format("i"))<=10)) {
+                    if ((intval($dt->format("H")) >= 22 && intval($dt->format("i")) >= 30)&&(intval($dt->format("H")) <= 23 && intval($dt->format("i"))<=10)) {
                         $mensagem = presenca('Presenca3');
                     } else {
                         $mensagem = outTime();
