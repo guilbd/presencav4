@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/cadastro.css">
     <link rel="stylesheet" href="css/body.css">
     <link rel="stylesheet" href="css/modal.css">
-    <!-- <script src="js/verificacpf.js" defer></script> -->
+    <script src="js/verificacpf.js" defer></script>
     <script src="js/modal.js" defer></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
@@ -59,7 +59,7 @@
             $datata = $_SESSION['datahoje'];
             verifycall();
             if(isset($_COOKIE['blueid'])){
-                if($_COOKIE['blueid']!=NULL||$_COOKIE['blueid']!=0||$_COOKIE['blueid']!=""){
+                if($_COOKIE['blueid']!=0){
                     $_SESSION['id'] = $_COOKIE['blueid']; 
                 }                   
             }
