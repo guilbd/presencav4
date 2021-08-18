@@ -3,6 +3,7 @@
     include_once("conexao.php");
     
     function presenca($presenca){
+        
         $data = explode("-",$_SESSION['datahoje']);
         $conexao = getcon();
 //verificar data primeira presença por ip e primeira data da presença se existir marca segunda presença
@@ -13,27 +14,36 @@
         while($row = $salvar->fetch_assoc()) {
             $id = $row["id_cadastro"];
         }
-        $nome = "";
-        while($row = $salvar->fetch_assoc()) {
-            $id = $row["id_cadastro"];
-        }
-        if(mysqli_num_rows($salvar)>0){
+        if(mysqli_num_rows($salvar)>0 ){
             $sql = "SELECT nome FROM alunos WHERE id = '".$id."'";
             $salvar = mysqli_query($conexao, $sql);
             while($row = $salvar->fetch_assoc()) {
                 $nome = $row["nome"];
             }  
         }
+        elseif(isset($_SESSION['id'])){
+            $sql = "SELECT nome FROM alunos WHERE id = '".$_SESSION['id']."'";
+            $salvar = mysqli_query($conexao, $sql);
+            while($row = $salvar->fetch_assoc()) {
+                $nome = $row["nome"];
+            } 
+            $id = $_SESSION['id']; 
+        }
+        echo "<script>document.cookie = 'blueid=".$id."'; </script>";
         // Caso exista alguma presença com o ip do cliente
-        if(mysqli_num_rows($salvar)>0){
+        if(mysqli_num_rows($salvar)>0 || isset($_SESSION['id'])){
             
             $sql = "SELECT id FROM listadepreseca WHERE IPdispositivo = '".$_SESSION['ip']."' AND data = '".$_SESSION['datahoje']."'";
+            if(isset($_SESSION['id'])){
+                $sql = "SELECT id FROM listadepreseca WHERE id_cadastro = '".$_SESSION['id']."' AND data = '".$_SESSION['datahoje']."'";
+            }
             $salvar = mysqli_query($conexao, $sql);
            
             //caso exista uma presentaça com o ip na data atual
-            if(mysqli_num_rows($salvar)>0){
+            if(mysqli_num_rows($salvar)>0 || isset($_SESSION['id'])){
                 while($row = $salvar->fetch_assoc()) {
                     $id = $row["id"];
+                    
                 }
                 
                 $sql = "SELECT ".$presenca." FROM listadepreseca WHERE id = '".$id."'";
@@ -52,8 +62,7 @@
                         $valor = $row["Presenca3"];
                     }
                     
-                }
-                
+                }   
                 
                 
                 // caso a presença 2 não exista
@@ -67,7 +76,7 @@
                     
                     if ($conexao->query($sql) === TRUE) {
                         $conexao->close();
-                        return ucfirst(strtolower($nome)).".<br>Sua ".substr($presenca, -1)."ª Presença foi registrada em: ".$_SESSION['time']." do dia ".$data[2]."/".$data[1]."/".$data[0]."!";
+                        return ucfirst(strtolower($nome)).".<br>Sua ".substr($presenca, -1)."ª Presença foi registrada em: <br>".$_SESSION['time']." do dia ".$data[2]."/".$data[1]."/".$data[0]."!";
                     }
                     // caso o update não tenha dado certo
                     else{
@@ -76,7 +85,7 @@
                 }
                 // caso a presença 2 já exista
                 else{
-                    return ucfirst(strtolower($nome))." . A sua ".substr($presenca, -1)."ª presença já foi registrada em: ".$data[2]."/".$data[1]."/".$data[0]." ás: ".$valor;
+                    return ucfirst(strtolower($nome)).". <br>A sua ".substr($presenca, -1)."ª presença já foi registrada em: <br>".$data[2]."/".$data[1]."/".$data[0]." às: ".$valor;
                 }
                 
             }
@@ -85,17 +94,15 @@
                 
                 $sql = "SELECT id_cadastro FROM listadepreseca WHERE IPdispositivo = '".$_SESSION['ip']."'";
                 $salvar =mysqli_query($conexao, $sql);
-                $id = 0;
-                if(mysqli_num_rows($salvar)>0){
-                    while($row = $salvar->fetch_assoc()) {
-                        $id = $row["id_cadastro"];
-                    }
+
+                if(isset($_SESSION['id'])){
+                    $id = $_SESSION['id'];
                 }
-                
                 $sql = "INSERT INTO listadepreseca (IPdispositivo,".$presenca.",id_cadastro,data) VALUES ('".$_SESSION['ip']."','".$_SESSION['time']."','".$id."','".$_SESSION['datahoje']."')";
                 if ($conexao->query($sql) === TRUE) {
                    
-                    return ucfirst(strtolower($nome)).".<br>Sua ".substr($presenca, -1)."ª Presença foi registrada em: ".$_SESSION['time']." do dia ".$data[2]."/".$data[1]."/".$data[0]."!";
+                    return ucfirst(strtolower($nome)).".<br>Sua ".substr($presenca, -1)."ª Presença foi registrada em: <br>".$_SESSION['time']." do dia ".$data[2]."/".$data[1]."/".$data[0]."!
+                    <script>document.cookie = '".$id."' </script>";
                 
                     }else{
                         $valor =$conexao->error;
@@ -121,6 +128,7 @@
                     $nome = "";
                     while($row = $salvar->fetch_assoc()) {
                         $id = $row["id"];
+                        echo "<script>document.cookie = 'blueid=".$id."'; </script>";
                         $nome = $row["nome"];
                     }
                     
@@ -176,7 +184,21 @@
             if(mysqli_num_rows($salvar)>0) {
                 return ucfirst(strtolower($nome)).".<br> O horário do registro de chamada está incorreto.";
             }
+            
+        }else{
+            return "O horário do registro de chamada está incorreto.";
         }
+    }
+    function verifycall(){
+        $conexao = getcon();
+        $sql = "SELECT id FROM listadepreseca WHERE IPdispositivo = '".$_SESSION['ip']."' AND data = '".$_SESSION['datahoje']."'";
+        if(isset($_SESSION['id'])){
+            $sql = "SELECT id FROM listadepreseca WHERE id_cadastro = '".$_SESSION['id']."' AND data = '".$_SESSION['datahoje']."'";
+        }
+        $salvar = mysqli_query($conexao, $sql);
+        if(mysqli_num_rows($salvar)<=0 ){
+            echo "<script>setTimeout(function(){ document.getElementById('notice').style.display='flex'; }, 2000);</script>";
+        }   
     }
 
 ?>

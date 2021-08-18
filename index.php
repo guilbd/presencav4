@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/cadastro.css">
     <link rel="stylesheet" href="css/body.css">
     <link rel="stylesheet" href="css/modal.css">
-    <script src="js/verificacpf.js" defer></script>
+    <!-- <script src="js/verificacpf.js" defer></script> -->
     <script src="js/modal.js" defer></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
@@ -26,6 +26,7 @@
 
 <?php
     session_start();
+   
     if(isset($_GET['registro'])){
         $cpfteste = "'000.000.000-00'";
         echo '
@@ -45,6 +46,8 @@
         ';
     }
     else{
+        include_once("php/presenca.php");
+       
         $mensagem = "Desative o Adblock para que que o sistema possa funcionar!";
         if(isset($_POST['ip'])){
             
@@ -54,10 +57,16 @@
             $_SESSION['datahoje'] = $dt->format("Y-m-d");
             $_SESSION['time'] = $dt->format("H:i:s");
             $datata = $_SESSION['datahoje'];
-           
-            include_once("php/presenca.php");
-            if ((intval($dt->format("H")) >= 18 && intval($dt->format("i")) >= 50)&&(intval($dt->format("H")) <= 19 && intval($dt->format("i"))<=30)) {
-                $mensagem = presenca('Presenca3'); 
+            verifycall();
+            if(isset($_COOKIE['blueid'])){
+                if($_COOKIE['blueid']!=NULL||$_COOKIE['blueid']!=0||$_COOKIE['blueid']!=""){
+                    $_SESSION['id'] = $_COOKIE['blueid']; 
+                }                   
+            }
+            
+            if ((intval($dt->format("H")) >= 16 && intval($dt->format("i")) >= 20)||(intval($dt->format("H")) <= 19 && intval($dt->format("i"))<=30)) {
+                
+                $mensagem = presenca('Presenca1'); 
             } 
             else {
                 if ((intval($dt->format("H")) >= 20 && intval($dt->format("i")) >= 45)&&(intval($dt->format("H")) <= 21 && intval($dt->format("i"))<=45)) {
@@ -70,13 +79,18 @@
                     }
                 }
             }
+            // if(isset($_POST['id'])){
+            //     $mensagem = $_POST['id'];
+               
+            // }
             
         }  
-        else{
+        elseif(!isset($_GET['messsage'])){
             echo"
                 <script src='js/jquery-3.6.0.min.js'></script>
                 <script>
                 function redirectPost(url,data) {
+                         
                     var form = document.createElement('form');
                     document.body.appendChild(form);
                     form.method = 'post';
@@ -102,6 +116,9 @@
             //     </script>
 
             // ";
+        }
+        else{
+            $message = $_GET['message'];
         }
         echo"
         <div class='formulario'>

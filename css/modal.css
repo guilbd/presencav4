@@ -1,5 +1,5 @@
 .modal{
-    display: flex; 
+    display: none; 
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -54,4 +54,7 @@
 }
 .modal .content .concordo:hover{
     background-color: greenyellow;
+}
+.modal{
+    display: none; 
 }
