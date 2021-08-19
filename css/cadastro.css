@@ -1,0 +1,89 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: rgb(214, 226, 236);
+}
+.logo{
+    display: flex;
+}
+@media only screen and (max-width:570px) {
+    .formulario,.img{
+        width: 70vw;
+    }
+}
+ @media only screen and (min-width: 571px) {
+    .formulario,.img{
+        width: 50vw;
+    }
+}
+@media only screen and (min-width: 1024px) {
+    .formulario,.img{
+        width: 30vw;
+    }
+} 
+
+.img{
+    margin: 0;
+    padding: 0;
+    
+}
+.formulario{
+    
+    margin: 0;
+    background-color: blue;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    color: azure;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px black;
+    padding: 2%;
+}  
+.formulario h1{
+    
+    top: 0;
+    display: flex;
+    text-align: center;
+}
+.formulario .registro{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.formulario .registro label{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 5%;
+    margin-top: 10%;
+    font-weight: bolder;
+    font-size: larger;
+    
+}
+.formulario .registro input{
+    width: 100%;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    height: 30px;
+    outline: none;
+    border-radius: 20px;
+    border:none;
+    box-shadow: 5px 5px 0px black;
+}
+.formulario .registro .botao{
+    width: 100%;
+    margin-top: 10%;
+    border:none;
+    padding:4%;
+    padding-left: 0;
+    padding-right: 0;
+    background-color:white;
+    border-radius: 20px;
+    box-shadow: 5px 5px 0px black;
+
+}
