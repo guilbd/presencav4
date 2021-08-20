@@ -1,49 +1,57 @@
 let cpf = document.getElementById('cpf');
 let button = document.getElementById('verificar');
-cpf.addEventListener("keyup", validateValue);
+cpf.addEventListener("keydown", validateValue);
 cpf.addEventListener("focusout", validateValue);
 button.disabled = true;
 button.style.boxShadow ="5px 5px 0px #fd0101";
-function validateValue(){
-    let value = cpf.value;
-    if(value.length == 14){
-        let number = [];
-        let first = 0;
-        let second = 0;
-        value = value.replace(".","");
-        value = value.replace(".","");
-        value = value.replace("-","");
-        for(var i=0;i < 11;i++){
-            number.push(parseInt(value.substr(i,1))); 
+function validateValue(event){
+    if(event.keyCode != 8){
+        let value = cpf.value;
+        if(value.length == 14){
+            let number = [];
+            let first = 0;
+            let second = 0;
+            value = value.replace(".","");
+            value = value.replace(".","");
+            value = value.replace("-","");
+            for(var i=0;i < 11;i++){
+                number.push(parseInt(value.substr(i,1))); 
+            }
+            if(verifyRepeat(number)){
+                first = multiplyParts(number,8,1);
+                second = multiplyParts(number,9,0);
+            }
+            if(second > 9){
+                second = 0;
+            }
+            if(first > 9){
+                first = 0;
+            }
+            if((first == number[9])&&(second == number[10])&&(cpf.value!= "000.000.000-00")&&(cpf.value!= "00000000000000")){
+                cpf.style.boxShadow ="5px 5px 0px #16fd01";
+                button.style.boxShadow ="5px 5px 0px #16fd01";
+                button.disabled = false;        
+            }else{
+                cpf.style.boxShadow ="5px 5px 0px #fd0101";
+                button.style.boxShadow ="5px 5px 0px #fd0101";
+                button.disabled = true;   
+            }
+        
+        }else{
+            if(cpf.value.length==0){
+                cpf.placeholder = "Ex. 000.000.000-00";
+            }
+            if(value.length == 3 ||value.length == 7){
+                cpf.value = value +".";
+            }
+            if(value.length == 11){
+                cpf.value = value+"-";
+            }
+            cpf.style.boxShadow ="5px 5px 0px #fd0101";
+            button.style.boxShadow ="5px 5px 0px #fd0101";
+            button.disabled = true;   
         }
-        if(verifyRepeat(number)){
-            first = multiplyParts(number,8,1);
-            second = multiplyParts(number,9,0);
-        }
-        if(second > 9){
-            second = 0;
-        }
-    if((first == number[9])&&(second == number[10])&&(cpf.value!= "000.000.000-00")){
-        cpf.style.boxShadow ="5px 5px 0px #16fd01";
-        button.style.boxShadow ="5px 5px 0px #16fd01";
-        button.disabled = false;        
-    }else{
-        cpf.style.boxShadow ="5px 5px 0px #fd0101";
-        button.style.boxShadow ="5px 5px 0px #fd0101";
-        button.disabled = true;   
     }
-}else{
-
-    if(value.length == 3 ||value.length == 7){
-        cpf.value = value +".";
-    }
-    if(value.length == 11){
-        cpf.value = value+"-";
-    }
-    cpf.style.boxShadow ="5px 5px 0px #fd0101";
-    button.style.boxShadow ="5px 5px 0px #fd0101";
-    button.disabled = true;   
-}
 
 }
 
@@ -68,4 +76,8 @@ function multiplyParts(number,max,start){
     }
        return (sumdigit%11);
    
+}
+cpf.addEventListener("focus",clean);
+function clean(){
+    cpf.placeholder = '';
 }

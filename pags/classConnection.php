@@ -56,7 +56,7 @@
                             return "erro";
                         }
                     }else{
-                        echo "<script>alert('aqui');</script>";
+                        
                         return "erro";
                     }
             

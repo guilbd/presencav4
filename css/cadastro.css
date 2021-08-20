@@ -5,18 +5,29 @@
     display: flex;
 }
 @media only screen and (max-width:570px) {
-    .formulario,.img{
+    .formulario{
         width: 70vw;
+        height: auto;
+    }
+    .img{
+        height: 10vh;
+        width: auto;
     }
 }
  @media only screen and (min-width: 571px) {
-    .formulario,.img{
+    .formulario{
         width: 50vw;
+        height: auto;
+    }
+    .img{
+        height: 10vh;
+        width: auto;
     }
 }
 @media only screen and (min-width: 1024px) {
-    .formulario,.img{
+    .formulario ,.img{
         width: 30vw;
+        height: auto;
     }
 } 
 

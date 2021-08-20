@@ -19,7 +19,7 @@ body{
 }
 body .avisar{
     display: flex;
-    z-index: 5;
+    z-index: -1;
     position: absolute;
     bottom: 0;
     padding: 1%;
@@ -27,7 +27,6 @@ body .avisar{
     text-align: center;
     justify-content: center;
     align-items: center;
-    
     font-weight: bold;
     font-size: large;
     color: white;
@@ -35,3 +34,18 @@ body .avisar{
     box-shadow: 0 -5px 5px rgb(0, 0, 0,0.3);
     width: 98%;
 }
+@media only screen and (max-width:570px) {
+    body .avisar{
+        transform: translate(0px,100%);
+    }
+}
+ @media only screen and (min-width: 571px) {
+    body .avisar{
+        transform: translate(0px,100%);
+    }
+}
+@media only screen and (min-width: 1024px) {
+    body .avisar{
+        transform: translate(0px,0px);
+    }
+} 
