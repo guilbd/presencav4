@@ -20,10 +20,10 @@ function validateValue(){
             first = multiplyParts(number,8,1);
             second = multiplyParts(number,9,0);
         }
-    console.log(first+"first");
-    console.log(second);
-    console.log(number);
-    if(first == number[9] && second == number[10] && cpf.value!= "000.000.000-00"){
+        if(second > 9){
+            second = 0;
+        }
+    if((first == number[9])&&(second == number[10])&&(cpf.value!= "000.000.000-00")){
         cpf.style.boxShadow ="5px 5px 0px #16fd01";
         button.style.boxShadow ="5px 5px 0px #16fd01";
         button.disabled = false;        
@@ -51,17 +51,20 @@ function validateValue(){
 function verifyRepeat(valor){
     for(var i=0; i<(valor.length-1);i++){
         if(valor[i] != valor[i+1]){
+
             return true;
         }
     }
     return false;
 }
 function multiplyParts(number,max,start){
-    sumdigit =0;
+    
+    var sumdigit =0;
+    var comeco = start;
     for(var i=0;i<=max;i++){
-        console.log(start+" * "+number[i])
-        sumdigit += (number[i] *(start));
-        start++;
+        
+        sumdigit += (number[i] *(comeco));
+        comeco=comeco+1;
     }
        return (sumdigit%11);
    

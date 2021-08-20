@@ -44,9 +44,9 @@
                     $makepresence->setSessionIp($_POST['ip']);
                     setcookie("ip",$_POST['ip'], time()+2*24*60*60);
                 }
-                if ((intval($dt->format("H")) == 12 && intval($dt->format("i")) >= 12)||(intval($dt->format("H")) == 19 && intval($dt->format("i"))<=30)) {
+                if ((intval($dt->format("H")) == 13 && intval($dt->format("i")) >= 12)||(intval($dt->format("H")) == 19 && intval($dt->format("i"))<=30)) {
                     
-                    $mensagem = $makepresence->verifyPresence('Presenca1'); 
+                    $mensagem = $makepresence->verifyPresence('Presenca3'); 
                 } 
                 else {
                     if ((intval($dt->format("H")) == 20 && intval($dt->format("i")) >= 45)||(intval($dt->format("H")) == 21 && intval($dt->format("i"))<=45)) {
