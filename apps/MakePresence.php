@@ -70,38 +70,41 @@
                 case 0:
                     // Case the new presence ok
                     // no caso de uma nova presença
-                    $message = ucfirst(strtolower($this->getSessionName())).
+                    $message = ['lime',ucfirst(strtolower($this->getSessionName())).
                             ".<br>Sua ".substr($value, -1).
                             "ª Presença foi registrada em: <br>".
                             $this->getSessionTime()."<br> do dia <br>".$data[2].
-                            "/".$data[1]."/".$data[0]."!";
+                            "/".$data[1]."/".$data[0]."!"];
                     break;
                 case 1:
                     // case the presence has existence
                     // caso a presenca exista
-                    $message = ucfirst(strtolower($this->getSessionName())).
+                    $message = ['#FFA500',ucfirst(strtolower($this->getSessionName())).
                             ". <br>A sua ".substr($value, -1).
                             "ª presença já foi registrada em: <br>".
                             $data[2]."/".$data[1]."/".$data[0].
-                            " <br>às: <br>".$this->getSessionTime();
+                            " <br>às: <br>".$this->getSessionTime()];
                     break;
                 case 2:
                     //case not have cookie or ip registered
                     //caso não haja cookie ou ip registrado
-                    $message = "Seu CPF não está cadastrado em nosso banco de alunos matriculados.<br> Por favor entre em contato com a Blue no discord.";
+                    $message = ['red',"Seu CPF não está cadastrado em nosso banco de alunos matriculados.<br> Por favor entre em contato com a Blue no discord."];
                     break;
                 case 3:
                     //case out of time
                     //caso fora de horário
-                    $message = ucfirst(strtolower($this->getSessionName())).".<br> O horário do registro de chamada está incorreto.";
+                    $message = ['red',ucfirst(strtolower($this->getSessionName())).".<br> O horário do registro de chamada está incorreto."];
                     break;
                 case 4:
                     //case dont have ip
                     //caso não tenha ip
-                    $message = "Desative seu ADBLOCK para que possamos capturar o IP";
+                    $message =['red',"Desative seu ADBLOCK para que possamos capturar o IP"];
                     break;
                 case 5:
-                    $message = "Error Ao Efetuar Presença";
+                    $message = ['red',"Error Ao Efetuar Presença"];
+                    break;
+                case 6:
+                    $message = ['blue',"register"];
                     break;
                
             }
@@ -122,7 +125,7 @@
                 }
                 else{
                     if(strcmp($this->getSessionCpf(),"")==0){
-                        return "register";
+                        return $this->messages(6,"");
                     }else{
                         $response = $this->verifyRegister();
                         if(strcmp($response,"")==0){

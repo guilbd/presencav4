@@ -23,7 +23,7 @@ function validateValue(){
     console.log(first+"first");
     console.log(second);
     console.log(number);
-    if(first == number[9] && second == number[10]){
+    if(first == number[9] && second == number[10] && cpf.value!= "000.000.000-00"){
         cpf.style.boxShadow ="5px 5px 0px #16fd01";
         button.style.boxShadow ="5px 5px 0px #16fd01";
         button.disabled = false;        

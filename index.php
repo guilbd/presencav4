@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="css/body.css">
         <link rel="stylesheet" href="css/modal.css">
         <script src="js/verificacpf.js" defer></script>
+        <script src="js/status.js" defer></script>
         <script src="js/modal.js" defer></script>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
         <title>Cadastro</title>
@@ -19,12 +20,13 @@
         </header>
         <?php
             include_once('apps/MakePresence.php');
-            $mensagem = "";
+            $makepresence = new MakePresence();
+            $mensagem = $makepresence->messages(4,"");
             if(isset($_POST['ip'])||isset($_COOKIE['ip'])){
                 
                 $dtz = new DateTimeZone("America/Sao_Paulo");
                 $dt = new DateTime("now", $dtz);
-                $makepresence = new MakePresence();
+                
                 $makepresence->setSessionDate($dt->format("Y-m-d"));
                 $makepresence->setSessionTime($dt->format("H:i:s"));
                 
@@ -42,22 +44,22 @@
                     $makepresence->setSessionIp($_POST['ip']);
                     setcookie("ip",$_POST['ip'], time()+2*24*60*60);
                 }
-                if ((intval($dt->format("H")) >= 6 && intval($dt->format("i")) >= 10)||(intval($dt->format("H")) <= 19 && intval($dt->format("i"))<=30)) {
+                if ((intval($dt->format("H")) == 12 && intval($dt->format("i")) >= 12)||(intval($dt->format("H")) == 19 && intval($dt->format("i"))<=30)) {
                     
                     $mensagem = $makepresence->verifyPresence('Presenca1'); 
                 } 
                 else {
-                    if ((intval($dt->format("H")) >= 20 && intval($dt->format("i")) >= 45)&&(intval($dt->format("H")) <= 21 && intval($dt->format("i"))<=45)) {
+                    if ((intval($dt->format("H")) == 20 && intval($dt->format("i")) >= 45)||(intval($dt->format("H")) == 21 && intval($dt->format("i"))<=45)) {
                         $mensagem = $makepresence->verifyPresence('Presenca2'); 
                     }else{
-                        if ((intval($dt->format("H")) >= 22 && intval($dt->format("i")) >= 30)&&(intval($dt->format("H")) <= 23 && intval($dt->format("i"))<=10)) {
+                        if ((intval($dt->format("H")) == 22 && intval($dt->format("i")) >= 30)||(intval($dt->format("H")) == 23 && intval($dt->format("i"))<=10)) {
                             $mensagem = $makepresence->verifyPresence('Presenca3'); 
                         } else {
                             $mensagem = $makepresence->verifyPresence('');
                         }
                     }
                 }
-                if(strcmp($mensagem,"register")==0){
+                if(strcmp($mensagem[1],"register")==0){
                     $cpfteste = "'000.000.000-00'";
                     echo '
                     <div class="formulario">
@@ -84,14 +86,23 @@
                     </div>
                     ';
                 }else{
+                    $color ='style="background-color:'.$mensagem[0].';"';
                     echo"
-                    <div class='formulario'>
-                            <h1>$mensagem</h1>
-                            
-                    </div>
+                        <div id='message' class='formulario' ".$color.">
+                                <h1>$mensagem[1]</h1>
+                                
+                        </div>
                     ";
                 }
             }else{
+                
+                $color = 'style="background-color:'.$mensagem[0].';"';
+                echo"
+                    <div id='message' class='formulario' ".$color.">
+                            <h1>$mensagem[1]</h1>
+                            
+                    </div>
+                    ";
                 echo"
                 <script src='js/jquery-3.6.0.min.js'></script>
                 <script>
