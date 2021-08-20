@@ -7,33 +7,22 @@ button.style.boxShadow ="5px 5px 0px #fd0101";
 function validateValue(){
     let value = cpf.value;
     if(value.length == 14){
-    var number = [];
-    var first = 0;
-    var second = 0;
-    var sumdigit = 0;
-    value = value.replace(".","");
-    value = value.replace(".","");
-    value = value.replace("-","");
-    for(var i=0;i < 11;i++){
-        number.push(parseInt(value.substr(i,1))); 
-    }
-    for(var i=0;i<9;i++){
-        sumdigit += (number[i] *(10-i));
-    }
-    if((11-(sumdigit%11))<10){
-        first = 11-(sumdigit%11);
-    }else{
-        first = 0;
-    }
-    sumdigit =0;
-    for(var i=0;i<10;i++){
-        sumdigit += (number[i] *(11-i));
-    }
-    if((11-(sumdigit%11))<10){
-        second = 11-(sumdigit%11);
-    }else{
-        second = 0;
-    }
+        let number = [];
+        let first = 0;
+        let second = 0;
+        value = value.replace(".","");
+        value = value.replace(".","");
+        value = value.replace("-","");
+        for(var i=0;i < 11;i++){
+            number.push(parseInt(value.substr(i,1))); 
+        }
+        if(verifyRepeat(number)){
+            first = multiplyParts(number,8,1);
+            second = multiplyParts(number,9,0);
+        }
+    console.log(first+"first");
+    console.log(second);
+    console.log(number);
     if(first == number[9] && second == number[10]){
         cpf.style.boxShadow ="5px 5px 0px #16fd01";
         button.style.boxShadow ="5px 5px 0px #16fd01";
@@ -44,6 +33,13 @@ function validateValue(){
         button.disabled = true;   
     }
 }else{
+
+    if(value.length == 3 ||value.length == 7){
+        cpf.value = value +".";
+    }
+    if(value.length == 11){
+        cpf.value = value+"-";
+    }
     cpf.style.boxShadow ="5px 5px 0px #fd0101";
     button.style.boxShadow ="5px 5px 0px #fd0101";
     button.disabled = true;   
@@ -51,3 +47,22 @@ function validateValue(){
 
 }
 
+
+function verifyRepeat(valor){
+    for(var i=0; i<(valor.length-1);i++){
+        if(valor[i] != valor[i+1]){
+            return true;
+        }
+    }
+    return false;
+}
+function multiplyParts(number,max,start){
+    sumdigit =0;
+    for(var i=0;i<=max;i++){
+        console.log(start+" * "+number[i])
+        sumdigit += (number[i] *(start));
+        start++;
+    }
+       return (sumdigit%11);
+   
+}
