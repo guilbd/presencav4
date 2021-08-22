@@ -5,21 +5,21 @@
         <link rel="icon" href="href=https://blueedtech.com.br/wp-content/uploads/2020/12/cropped-favicon-1-32x32.png" size=“32x32">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="css/cadastro.css">
-        <link rel="stylesheet" href="css/body.css">
-        <link rel="stylesheet" href="css/modal.css">
-        <script src="js/verificacpf.js" defer></script>
-        <script src="js/status.js" defer></script>
-        <script src="js/modal.js" defer></script>
+        <link rel="stylesheet" href="../_css/cadastro.css">
+        <link rel="stylesheet" href="../_css/body.css">
+        <link rel="stylesheet" href="../_css/modal.css">
+        <script src="../_js/verificacpf.js" defer></script>
+        <script src="../_js/status.js" defer></script>
+        <script src="../_js/modal.js" defer></script>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
         <title>Cadastro</title>
     </head>
     <body>
         <header class="logo">
-            <img class="img" src="img/bluelogo.png">
+            <img class="img" src="../_img/bluelogo.png">
         </header>
         <?php
-            include_once('apps/MakePresence.php');
+            include_once('../_apps/MakePresence.php');
             $makepresence = new MakePresence();
             $mensagem = $makepresence->messages(4,"");
             if(isset($_POST['ip'])||isset($_COOKIE['ip'])){

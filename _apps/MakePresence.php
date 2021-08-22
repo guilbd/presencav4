@@ -1,6 +1,6 @@
 <?php
-    include_once('pags/classStudent.php');
-    include_once('pags/classPresence.php');
+    include_once('../_pags/classStudent.php');
+    include_once('../_pags/classPresence.php');
     Class MakePresence{
         // construct method
         // metodo construtor
