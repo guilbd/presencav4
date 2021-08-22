@@ -36,7 +36,6 @@ function validateValue(event){
                 button.style.boxShadow ="5px 5px 0px #fd0101";
                 button.disabled = true;   
             }
-        
         }else{
             if(cpf.value.length==0){
                 cpf.placeholder = "Ex. 000.000.000-00";
@@ -54,28 +53,22 @@ function validateValue(event){
     }
 
 }
-
-
 function verifyRepeat(valor){
     for(var i=0; i<(valor.length-1);i++){
         if(valor[i] != valor[i+1]){
-
             return true;
         }
     }
     return false;
 }
 function multiplyParts(number,max,start){
-    
     var sumdigit =0;
     var comeco = start;
     for(var i=0;i<=max;i++){
-        
         sumdigit += (number[i] *(comeco));
         comeco=comeco+1;
     }
        return (sumdigit%11);
-   
 }
 cpf.addEventListener("focus",clean);
 function clean(){
